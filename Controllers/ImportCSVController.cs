@@ -8,8 +8,8 @@ public class ImportCSVController: ControllerBase
 {
     [HttpPost]
     [Route("api/importcsv")]    
-    [Consumes("application/xml", "application/json")]
-    [Produces("application/xml", "application/json")]
+    [Consumes("application/xml")]
+    [Produces("application/xml")]
     public async Task<IActionResult> Importcsv([FromBody] FileContent fileContent)
     { 
         
