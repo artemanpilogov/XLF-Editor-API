@@ -9,15 +9,15 @@ public class ImportCSVController: ControllerBase
     [Consumes("application/xml")]
     public List<string> ImportXmlToCsv([FromBody] XliffFile xliffFile)
     {
-        List<string> csv = new List<string>();
+        List<string> listCsv = new List<string>();
         if (xliffFile != null)
         {   
             foreach(var item in xliffFile.file.body.group.transUnit)
             {                              
-                csv.Add(string.Join(";", item.source + ':' + item.target));
+                listCsv.Add(string.Join(";", item.source + ':' + item.target));
             }
-            return csv;
+            return listCsv;
         }
-        return csv;
+        return listCsv;
     }
 }
