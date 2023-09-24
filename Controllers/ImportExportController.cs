@@ -9,12 +9,12 @@ public class ImportExportController: ControllerBase
     [Route("api/ExportXmlToCsv")]
     [Consumes("application/xml")]
     [Produces("text/csv")]
-    public FileResult ExportXmlToCsv([FromBody] XliffFile xliffFile)
+    public FileResult ExportXmlToCsv([FromBody] XmlFile xmlFile)
     {
         StringBuilder listCsv = new StringBuilder();
-        if (xliffFile != null)
+        if (xmlFile != null)
         {   
-            foreach(var item in xliffFile.file.body.group.transUnit)
+            foreach(var item in xmlFile.file.body.group.transUnit)
             {    
                 listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", item.source, item.target));
             }        
@@ -22,5 +22,14 @@ public class ImportExportController: ControllerBase
         
         byte[] fileBytes  = Encoding.ASCII.GetBytes(listCsv.ToString());
         return File(fileBytes, "text/csv");
+    }
+
+    [HttpPost]
+    [Route("api/ImportCsvToXml")]
+    [Consumes("application/xml")]
+    [Produces("text/csv")]
+    public void ImportCsvToXml()
+    {        
+
     }
 }

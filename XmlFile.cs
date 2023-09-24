@@ -1,7 +1,7 @@
 using System.Xml.Serialization;
 
 [XmlRoot(ElementName = "xliff", Namespace = "urn:oasis:names:tc:xliff:document:1.2")]
-public class XliffFile
+public class XmlFile
 {
     [XmlElement(ElementName = "file")]
     public File file {get; set;}
