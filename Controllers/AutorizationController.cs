@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 
 [ApiController]
-[Route("[controller]")]
 public class AutorizationController: ControllerBase
 {
     public AutorizationController() {}
 
-    [HttpPost(Name = "CheckAutorizationInfo")]
-    public bool CheckAutorizationInfo(AutorizationInfo autorizationInfo)
+    [HttpPost]
+    [Route("api/Autorization")]
+    public bool Autorization(AutorizationInfo autorizationInfo)
     {
         if (IsValid(autorizationInfo.Email))
             return true;
