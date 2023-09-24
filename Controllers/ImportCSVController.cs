@@ -1,3 +1,4 @@
+using System.Text;
 using System.Xml;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,17 +8,19 @@ public class ImportCSVController: ControllerBase
     [HttpPost]
     [Route("api/ImportXmlToCsv")]    
     [Consumes("application/xml")]
-    public List<string> ImportXmlToCsv([FromBody] XliffFile xliffFile)
+    [Produces("text/csv")]
+    public async Task<FileResult> ImportXmlToCsv([FromBody] XliffFile xliffFile)
     {
-        List<string> listCsv = new List<string>();
+        StringBuilder listCsv = new StringBuilder();
         if (xliffFile != null)
         {   
             foreach(var item in xliffFile.file.body.group.transUnit)
-            {                              
-                listCsv.Add(string.Join(";", item.source + ':' + item.target));
-            }
-            return listCsv;
+            {    
+                listCsv.AppendLine(item.source + ',' + item.target + ";");                          
+            }        
         }
-        return listCsv;
+        
+        byte[] fileBytes  = Encoding.ASCII.GetBytes(listCsv.ToString());
+        return File(fileBytes, "text/csv", "text.csv");
     }
 }
