@@ -22,11 +22,14 @@ public class Body
 public class Group
 {
     [XmlElement(ElementName = "trans-unit")]
-    public List<TransUnit> transUnit {get; set;}
+    public List<TransUnit> transUnit {get; set;}    
 }
 
 public class TransUnit
 {
+    [XmlAttribute]
+    public string? id {get; set;}
+
     [XmlElement(ElementName = "source")]
     public string? source { get; set; }
 
