@@ -5,8 +5,10 @@ D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\XLF-Editor-API.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\XLF-Editor-API.deps.json
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\XLF-Editor-API.runtimeconfig.json
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\XLF-Editor-API.pdb
+D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\CsvHelper.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Microsoft.AspNetCore.OpenApi.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Microsoft.OpenApi.dll
+D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Newtonsoft.Json.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Swashbuckle.AspNetCore.Swagger.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll

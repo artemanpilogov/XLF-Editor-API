@@ -31,3 +31,5 @@ D:\Solution\Own\XLF-Editor-API\obj\Release\net7.0\refint\XLF-Editor-API.dll
 D:\Solution\Own\XLF-Editor-API\obj\Release\net7.0\XLF-Editor-API.pdb
 D:\Solution\Own\XLF-Editor-API\obj\Release\net7.0\XLF-Editor-API.genruntimeconfig.cache
 D:\Solution\Own\XLF-Editor-API\obj\Release\net7.0\ref\XLF-Editor-API.dll
+D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\CsvHelper.dll
+D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\Newtonsoft.Json.dll
