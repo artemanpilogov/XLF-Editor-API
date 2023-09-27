@@ -1,8 +1,7 @@
 using System.Globalization;
 using System.Text;
-using System.Xml.Serialization;
+using System.Xml;
 using CsvHelper;
-using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -33,9 +32,7 @@ public class ImportExportController: ControllerBase
     [Produces("application/xml")]
     public async Task<FileResult> ImportCsvToXml()
     {
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(XmlFile));
-        XmlFile newXmlFile = new XmlFile();
-
+        string newXmlFile = "";
         using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
         //using (StreamReader reader = new StreamReader("D:\\test.txt", Encoding.UTF8))
         {
@@ -43,41 +40,33 @@ public class ImportExportController: ControllerBase
             string[] file = stringFiles.Split("xml_csv_stop");
 
             List<CsvFile> csvFile = StringToCsv(file[0]);
-            XmlFile xmlFile = StringToXml(file[1]);
-            newXmlFile = UpdateXmlFile(csvFile, xmlFile);                
+            newXmlFile = UpdateXmlFile(csvFile, file[1]);                
         }
-
-        using(var fs = new MemoryStream())
-        {
-            xmlSerializer.Serialize(fs, newXmlFile);
-            byte[] fileBytes  = fs.ToArray();
-            return File(fileBytes, "application/xml");     
-        }       
+        
+        byte[] fileBytes  = Encoding.ASCII.GetBytes(newXmlFile);
+        return File(fileBytes, "application/xml");       
     }
 
-    private XmlFile UpdateXmlFile(List<CsvFile> csvFile, XmlFile xmlFile)
+    private string UpdateXmlFile(List<CsvFile> csvFile, string xmlFile)
     {
-        XmlFile newXmlFile = new XmlFile();
+        XmlDocument xmlDocument = new XmlDocument();
+        xmlDocument.LoadXml(xmlFile);
 
-        foreach(var item in csvFile)
+        XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);    
+        nsmgr.AddNamespace("ns", "urn:oasis:names:tc:xliff:document:1.2");
+
+        XmlNodeList nodes = xmlDocument.SelectNodes("ns:xliff/ns:file/ns:body/ns:group/ns:trans-unit", nsmgr);
+        foreach (XmlNode node in nodes)
         {
-            if (xmlFile.file.body.group.transUnit.Where(w => w.id == item.Id).FirstOrDefault() != null)
-            {
-                xmlFile.file.body.group.transUnit.Where(w => w.id == item.Id).FirstOrDefault().target = item.Target;
-            }
+            CsvFile csvTarget = csvFile.Where(w => w.Id == node.Attributes["id"].InnerText).FirstOrDefault();
+            if (csvTarget == null)
+                continue;
+
+            string target = "ns:xliff/ns:file/ns:body/ns:group/ns:trans-unit[@id="+ "'" + node.Attributes["id"].InnerText + "'" + "]/ns:target";
+            xmlDocument.SelectSingleNode(target, nsmgr).InnerText = csvTarget.Target;
         }
 
-        return xmlFile;
-    }
-
-    private XmlFile StringToXml(string file)
-    {
-        using(TextReader sReader = new StringReader(file))
-        {
-            var serializer = new XmlSerializer(typeof(XmlFile));
-            XmlFile xmlFile =  (XmlFile)serializer.Deserialize(sReader);
-            return xmlFile;
-        }        
+        return xmlDocument.OuterXml;
     }
 
     private List<CsvFile> StringToCsv(string file)
