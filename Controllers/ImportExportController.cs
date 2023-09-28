@@ -14,13 +14,23 @@ public class ImportExportController: ControllerBase
     public FileResult ExportXmlToCsv(XmlFile xmlFile)
     {
         StringBuilder listCsv = new StringBuilder();
-        listCsv.AppendLine("\"id\",\"source\",\"target\"");
+        listCsv.AppendLine("\"source\",\"target\"");
         if (xmlFile != null)
         {
-            foreach(var item in xmlFile.file.body.group.transUnit)
-            {    
-                listCsv.AppendLine(string.Format("\"{0}\",\"{1}\",\"{2}\"", item.id, item.source, item.target));
-            }        
+            var groupSources = xmlFile.file.body.group.transUnit.GroupBy(g => g.source);
+
+            foreach(var groupSource in groupSources)
+            {
+                string targetLine = string.Empty;
+                foreach(var target in groupSource)
+                {
+                    if (string.IsNullOrEmpty(targetLine))
+                        targetLine = target.target;
+                    else
+                        targetLine += ',' + target.target;
+                }
+                listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", groupSource.Key, targetLine));
+            }       
         }
         
         byte[] fileBytes  = Encoding.ASCII.GetBytes(listCsv.ToString());
