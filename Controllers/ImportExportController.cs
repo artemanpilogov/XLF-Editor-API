@@ -22,14 +22,18 @@ public class ImportExportController: ControllerBase
             foreach(var groupSource in groupSources)
             {
                 string targetLine = string.Empty;
-                foreach(var target in groupSource)
+                foreach(var line in groupSource)
                 {
+                    if (string.IsNullOrEmpty(line.source))
+                        continue;
+
                     if (string.IsNullOrEmpty(targetLine))
-                        targetLine = target.target;
+                        targetLine = line.target;
                     else
-                        targetLine += ',' + target.target;
+                        targetLine += ',' + line.target;
                 }
-                listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", groupSource.Key, targetLine));
+                if (!string.IsNullOrEmpty(targetLine))
+                    listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", groupSource.Key, targetLine));
             }       
         }
         
