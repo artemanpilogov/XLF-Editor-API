@@ -3,10 +3,19 @@ using System.Text;
 using System.Xml;
 using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
+using Manage.Models;
+using System.Net;
 
 [ApiController]
 public class ImportExportController: ControllerBase
 {
+    private readonly DBContext _dbContext;
+
+    public ImportExportController(DBContext dbContext) 
+    {
+        _dbContext = dbContext;
+    } 
+
     [HttpPost]
     [Route("api/ExportXmlToCsv")]
     [Consumes("application/xml")]
@@ -17,27 +26,26 @@ public class ImportExportController: ControllerBase
         listCsv.AppendLine("\"source\",\"target\"");
         if (xmlFile != null)
         {
-            var groupSources = xmlFile.file.body.group.transUnit.GroupBy(g => g.source);
+            var groupSources = xmlFile.file.body.group.transUnit.Where(w => w.source != "").GroupBy(g => g.source);
 
             foreach(var groupSource in groupSources)
             {
                 string targetLine = string.Empty;
                 foreach(var line in groupSource)
                 {
-                    if (string.IsNullOrEmpty(line.source))
-                        continue;
-
                     if (string.IsNullOrEmpty(targetLine))
                         targetLine = line.target;
                     else
                         targetLine += ',' + line.target;
                 }
-                if (!string.IsNullOrEmpty(targetLine))
+                if (groupSource.Key != null)
                     listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", groupSource.Key, targetLine));
             }       
         }
         
         byte[] fileBytes  = Encoding.ASCII.GetBytes(listCsv.ToString());
+        Manages manages = new Manages(_dbContext);        
+        manages.InsertLog(GetIpAddrss(), EntryType.ImportToCSSV);
         return File(fileBytes, "text/csv");
     }
 
@@ -91,5 +99,15 @@ public class ImportExportController: ControllerBase
             List<CsvFile> csvFile = csvReader.GetRecords<CsvFile>().ToList();
             return csvFile;
         }        
+    }
+
+    private string GetIpAddrss()
+    {
+        string ip_address = Response.HttpContext.Connection.RemoteIpAddress.ToString();
+        if (ip_address == "::1")
+        {
+            ip_address = Dns.GetHostEntry(Dns.GetHostName()).AddressList[3].ToString();
+        }
+        return ip_address;
     }
 }
