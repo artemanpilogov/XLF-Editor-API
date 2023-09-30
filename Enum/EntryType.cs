@@ -1,5 +1,5 @@
 public enum EntryType
 {
-    ImportToCSSV = 0,
+    ImportToCSV = 0,
     ExportFromCSV = 1
 }

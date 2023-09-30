@@ -45,7 +45,7 @@ public class ImportExportController: ControllerBase
         
         byte[] fileBytes  = Encoding.ASCII.GetBytes(listCsv.ToString());
         Manages manages = new Manages(_dbContext);        
-        manages.InsertLog(GetIpAddrss(), EntryType.ImportToCSSV);
+        manages.InsertLog(GetIpAddrss(), EntryType.ImportToCSV);
         return File(fileBytes, "text/csv");
     }
 
