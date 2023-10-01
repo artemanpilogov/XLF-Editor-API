@@ -1,4 +1,5 @@
 using Log.Models;
+using Setup.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class DBContext: DbContext
@@ -12,7 +13,8 @@ public class DBContext: DbContext
     {
     }
 
-    public virtual DbSet<LogEntity> LogsEntity { get; set; } = null!;
+    public virtual DbSet<LogEntity> LogEntities { get; set; } = null!;
+    public virtual DbSet<SetupEntity> SetupEntities { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -27,6 +29,11 @@ public class DBContext: DbContext
         modelBuilder.Entity<LogEntity>(entity =>
         {
             entity.ToTable("Log");
+        });
+
+        modelBuilder.Entity<SetupEntity>(entity =>
+        {
+            entity.ToTable("Setup");
         });
     }
 }
