@@ -10,5 +10,6 @@ namespace Log.Models
         public DateTime Created_Date { get; set; }
         public TimeSpan Created_Time { get; set; }
         public int Action_Type { get; set; }
+        public string? Action_Type_Name { get; set; }
     }
 }

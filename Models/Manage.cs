@@ -10,10 +10,11 @@ namespace Manage.Models
         }       
 
         public void InsertLog(string ip_address, EntryType entryType)
-        {           
+        {                  
             Log.Models.LogEntity logEntity = new Log.Models.LogEntity {
                 Ip_Address = ip_address,
                 Action_Type = (int)entryType,
+                Action_Type_Name = Enum.GetName(typeof(EntryType), entryType),
                 Created_Date = DateTime.UtcNow.Date,
                 Created_Time = DateTime.UtcNow.TimeOfDay,
             };        
