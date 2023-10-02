@@ -8,5 +8,6 @@ namespace Setup.Models
         public string? Code { get; set; }
         public bool Insert_log_import_to_csv { get; set; }
         public bool Save_Changes { get; set; }
+        public bool Created_File { get; set; }
     }
 }

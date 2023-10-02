@@ -38,6 +38,12 @@ namespace Manage.Models
                         InsertLog(logEntity);
                     break;
                 }
+                case EntryType.CreatedFile:
+                {
+                    if (setupEntity.Created_File)
+                        InsertLog(logEntity);
+                    break;
+                }
             }
         }
 
