@@ -28,7 +28,13 @@ namespace Manage.Models
             {
                 case EntryType.ImportToCSV:
                 {
-                    if (setupEntity.Insert_log_import_to_csv)
+                    if (setupEntity.Import_To_CSV)
+                        InsertLog(logEntity);
+                    break;
+                }
+                case EntryType.ExportFromCSV:
+                {
+                    if (setupEntity.Export_From_CSV)
                         InsertLog(logEntity);
                     break;
                 }
