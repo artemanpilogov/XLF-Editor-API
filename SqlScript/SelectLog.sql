@@ -1,6 +1,0 @@
-SELECT TOP (1000) [entryNo]
-      ,[ip_address]
-      ,[created_date]
-      ,[created_time]
-      ,[action_type]
-  FROM [xlfeditor].[dbo].[Log]
