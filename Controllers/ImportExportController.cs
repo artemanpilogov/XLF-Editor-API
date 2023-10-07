@@ -7,14 +7,14 @@ using Manage.Models;
 using System.Net;
 
 [ApiController]
-public class ImportExportController: ControllerBase
+public class ImportExportController : ControllerBase
 {
     private readonly DBContext _dbContext;
 
-    public ImportExportController(DBContext dbContext) 
+    public ImportExportController(DBContext dbContext)
     {
         _dbContext = dbContext;
-    } 
+    }
 
     [HttpPost]
     [Route("api/ExportXmlToCsv")]
@@ -28,10 +28,10 @@ public class ImportExportController: ControllerBase
         {
             var groupSources = xmlFile.file.body.group.transUnit.Where(w => w.source != "").GroupBy(g => g.source);
 
-            foreach(var groupSource in groupSources)
+            foreach (var groupSource in groupSources)
             {
                 string targetLine = string.Empty;
-                foreach(var line in groupSource)
+                foreach (var line in groupSource)
                 {
                     if (string.IsNullOrEmpty(targetLine))
                         targetLine = line.target;
@@ -40,11 +40,11 @@ public class ImportExportController: ControllerBase
                 }
                 if (groupSource.Key != null)
                     listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", groupSource.Key, targetLine));
-            }       
+            }
         }
-        
-        byte[] fileBytes  = Encoding.ASCII.GetBytes(listCsv.ToString());
-        Manages manages = new Manages(_dbContext);        
+
+        byte[] fileBytes = Encoding.ASCII.GetBytes(listCsv.ToString());
+        Manages manages = new Manages(_dbContext);
         manages.InsertLog(GetIpAddrss(), EntryType.ImportToCSV);
         return File(fileBytes, "text/csv");
     }
@@ -62,11 +62,11 @@ public class ImportExportController: ControllerBase
             string[] file = stringFiles.Split("xml_csv_stop");
 
             List<CsvFile> csvFile = StringToCsv(file[0]);
-            newXmlFile = UpdateXmlFile(csvFile, file[1]);                
+            newXmlFile = UpdateXmlFile(csvFile, file[1]);
         }
-        
-        byte[] fileBytes  = Encoding.ASCII.GetBytes(newXmlFile);
-        return File(fileBytes, "application/xml");       
+
+        byte[] fileBytes = Encoding.ASCII.GetBytes(newXmlFile);
+        return File(fileBytes, "application/xml");
     }
 
     private string UpdateXmlFile(List<CsvFile> csvFile, string xmlFile)
@@ -74,7 +74,7 @@ public class ImportExportController: ControllerBase
         XmlDocument xmlDocument = new XmlDocument();
         xmlDocument.LoadXml(xmlFile);
 
-        XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);    
+        XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);
         nsmgr.AddNamespace("ns", "urn:oasis:names:tc:xliff:document:1.2");
 
         XmlNodeList nodes = xmlDocument.SelectNodes("ns:xliff/ns:file/ns:body/ns:group/ns:trans-unit", nsmgr);
@@ -84,7 +84,7 @@ public class ImportExportController: ControllerBase
             if (csvTarget == null)
                 continue;
 
-            string target = "ns:xliff/ns:file/ns:body/ns:group/ns:trans-unit[@id="+ "'" + node.Attributes["id"].InnerText + "'" + "]/ns:target";
+            string target = "ns:xliff/ns:file/ns:body/ns:group/ns:trans-unit[@id=" + "'" + node.Attributes["id"].InnerText + "'" + "]/ns:target";
             xmlDocument.SelectSingleNode(target, nsmgr).InnerText = csvTarget.Target;
         }
 
@@ -95,10 +95,10 @@ public class ImportExportController: ControllerBase
     {
         using (var sReader = new StringReader(file))
         using (var csvReader = new CsvReader(sReader, CultureInfo.InvariantCulture))
-        {                    
+        {
             List<CsvFile> csvFile = csvReader.GetRecords<CsvFile>().ToList();
             return csvFile;
-        }        
+        }
     }
 
     private string GetIpAddrss()

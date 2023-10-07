@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 
 [ApiController]
-public class AutorizationController: ControllerBase
+public class AutorizationController : ControllerBase
 {
     [HttpPost]
     [Route("api/Autorization")]
@@ -15,11 +15,11 @@ public class AutorizationController: ControllerBase
     }
 
     public static bool IsValid(string email)
-    { 
+    {
         var valid = true;
-            
+
         try
-        { 
+        {
             var emailAddress = new MailAddress(email);
         }
         catch

@@ -4,31 +4,31 @@ using System.Xml.Serialization;
 public class XmlFile
 {
     [XmlElement(ElementName = "file")]
-    public File file {get; set;}
+    public File file { get; set; }
 }
 
 public class File
 {
     [XmlElement(ElementName = "body")]
-    public Body body {get; set;}
+    public Body body { get; set; }
 }
 
 public class Body
 {
     [XmlElement(ElementName = "group")]
-    public Group group {get; set;}
+    public Group group { get; set; }
 }
 
 public class Group
 {
     [XmlElement(ElementName = "trans-unit")]
-    public List<TransUnit> transUnit {get; set;}    
+    public List<TransUnit> transUnit { get; set; }
 }
 
 public class TransUnit
 {
     [XmlAttribute]
-    public string? id {get; set;}
+    public string? id { get; set; }
 
     [XmlElement(ElementName = "source")]
     public string? source { get; set; }

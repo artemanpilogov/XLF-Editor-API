@@ -3,11 +3,11 @@ using Manage.Models;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-public class LogController: ControllerBase
+public class LogController : ControllerBase
 {
     private readonly DBContext _dbContext;
 
-    public LogController(DBContext dbContext) 
+    public LogController(DBContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -18,11 +18,11 @@ public class LogController: ControllerBase
     [Produces("text/csv")]
     public void InsertLog(int entryType)
     {
-        Manages manages = new Manages(_dbContext);        
-        manages.InsertLog(GetIpAddrss(), (EntryType)Enum.ToObject(typeof(EntryType), entryType));
+        Manages manages = new Manages(_dbContext);
+        manages.InsertLog(GetIpAddress(), (EntryType)Enum.ToObject(typeof(EntryType), entryType));
     }
 
-    private string GetIpAddrss()
+    private string GetIpAddress()
     {
         string ip_address = Response.HttpContext.Connection.RemoteIpAddress.ToString();
         if (ip_address == "::1")

@@ -2,7 +2,7 @@ using Log.Models;
 using Setup.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class DBContext: DbContext
+public class DBContext : DbContext
 {
     public DBContext()
     {
