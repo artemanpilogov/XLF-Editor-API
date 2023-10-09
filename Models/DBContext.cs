@@ -1,6 +1,7 @@
 using Log.Models;
 using Setup.Models;
 using Microsoft.EntityFrameworkCore;
+using Users.Models;
 
 public class DBContext : DbContext
 {
@@ -34,6 +35,11 @@ public class DBContext : DbContext
         modelBuilder.Entity<SetupEntity>(entity =>
         {
             entity.ToTable("Setup");
+        });
+
+        modelBuilder.Entity<UsersEntity>(entity =>
+        {
+            entity.ToTable("Users");
         });
     }
 }

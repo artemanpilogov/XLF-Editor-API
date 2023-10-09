@@ -54,6 +54,11 @@ namespace Manage.Models
             }
         }
 
+        public void RegisterUser(string Email, byte[] password)
+        {
+            
+        }
+
         private void InsertLog(LogEntity logEntity)
         {
             _dbContext.LogEntities.Add(logEntity);
