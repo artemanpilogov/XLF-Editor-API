@@ -14,9 +14,9 @@ public class AutorizationController : ControllerBase
     [HttpPost]
     [Route("api/Autorization")]
     public bool Autorization([FromBody] UserInfo userInfo)
-    {        
+    {
         Manages manages = new Manages(_dbContext);
-        return manages.IsUserExist(userInfo);        
+        return manages.Autorization(userInfo);
     }
 
     [HttpPost]
@@ -24,6 +24,6 @@ public class AutorizationController : ControllerBase
     public bool Register([FromBody] UserInfo userInfo)
     {
         Manages manages = new Manages(_dbContext);
-        return manages.RegisterUser(userInfo);        
-    }    
+        return manages.RegisterUser(userInfo);
+    }
 }

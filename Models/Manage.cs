@@ -75,7 +75,7 @@ namespace Manage.Models
             return true;
         }
 
-        public bool IsUserExist(UserInfo userInfo)
+        public bool Autorization(UserInfo userInfo)
         {
             if (!IsValid(userInfo.Email))
                 return false;
@@ -84,7 +84,10 @@ namespace Manage.Models
 
             if (userEntity == null)
                 return false;
-
+            if (userInfo.Password != DecryptPassword(userEntity.Password))
+            {
+                return  false;
+            }
             return true;
         }
 
@@ -92,6 +95,12 @@ namespace Manage.Models
         {
             ASCIIEncoding encryptpwd = new ASCIIEncoding();
             return encryptpwd.GetBytes(password);
+        }
+
+        private string DecryptPassword(byte[] password)
+        {
+            ASCIIEncoding encryptpwd = new ASCIIEncoding();
+            return encryptpwd.GetString(password);
         }
 
         private void InsertLog(LogEntity logEntity)
