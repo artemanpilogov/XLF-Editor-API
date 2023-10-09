@@ -1,4 +1,4 @@
-public class Register
+public class UserInfo
 {  
     public string? Email { get; set; }
 

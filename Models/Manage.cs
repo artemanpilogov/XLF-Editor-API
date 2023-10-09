@@ -1,5 +1,8 @@
+using System.Net.Mail;
+using System.Text;
 using Log.Models;
 using Setup.Models;
+using Users.Models;
 
 namespace Manage.Models
 {
@@ -54,15 +57,63 @@ namespace Manage.Models
             }
         }
 
-        public void RegisterUser(string Email, byte[] password)
+        public bool RegisterUser(UserInfo userInfo)
         {
-            
+            if (!IsValid(userInfo.Email))
+                return false;
+
+            if (_dbContext.UsersEntities.Where(w => w.Email == userInfo.Email).Any())
+                return false;
+
+            _dbContext.UsersEntities.Add(new UsersEntity
+            {
+                Email = userInfo.Email,
+                Password = EncryptPassword(userInfo.Password)
+            });
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
+        public bool IsUserExist(UserInfo userInfo)
+        {
+            if (!IsValid(userInfo.Email))
+                return false;
+
+            UsersEntity userEntity = _dbContext.UsersEntities.Where(w => w.Email == userInfo.Email).FirstOrDefault();
+
+            if (userEntity == null)
+                return false;
+
+            return true;
+        }
+
+        private byte[] EncryptPassword(string password)
+        {
+            ASCIIEncoding encryptpwd = new ASCIIEncoding();
+            return encryptpwd.GetBytes(password);
         }
 
         private void InsertLog(LogEntity logEntity)
         {
             _dbContext.LogEntities.Add(logEntity);
             _dbContext.SaveChanges();
+        }
+
+        private static bool IsValid(string email)
+        {
+            var valid = true;
+
+            try
+            {
+                var emailAddress = new MailAddress(email);
+            }
+            catch
+            {
+                valid = false;
+            }
+
+            return valid;
         }
     }
 }

@@ -16,6 +16,7 @@ public class DBContext : DbContext
 
     public virtual DbSet<LogEntity> LogEntities { get; set; } = null!;
     public virtual DbSet<SetupEntity> SetupEntities { get; set; } = null!;
+    public virtual DbSet<UsersEntity> UsersEntities { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

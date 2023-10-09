@@ -1,7 +1,5 @@
 using Manage.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mail;
-using System.Text;
 
 [ApiController]
 public class AutorizationController : ControllerBase
@@ -15,41 +13,17 @@ public class AutorizationController : ControllerBase
 
     [HttpPost]
     [Route("api/Autorization")]
-    public bool Autorization(AutorizationInfo autorizationInfo)
-    {
-        if (IsValid(autorizationInfo.Email))
-            return true;
-
-        return false;
+    public bool Autorization([FromBody] UserInfo userInfo)
+    {        
+        Manages manages = new Manages(_dbContext);
+        return manages.IsUserExist(userInfo);        
     }
 
     [HttpPost]
     [Route("api/Register")]
-    public bool Register([FromBody] Register register)
+    public bool Register([FromBody] UserInfo userInfo)
     {
-        if (!IsValid(register.Email))
-            return false;
-
-        ASCIIEncoding encryptpwd = new ASCIIEncoding();
-        byte[] passwordArray = encryptpwd.GetBytes(register.Password);
         Manages manages = new Manages(_dbContext);
-        manages.RegisterUser(register.Email, passwordArray);
-        return true;
-    }
-
-    public static bool IsValid(string email)
-    {
-        var valid = true;
-
-        try
-        {
-            var emailAddress = new MailAddress(email);
-        }
-        catch
-        {
-            valid = false;
-        }
-
-        return valid;
-    }
+        return manages.RegisterUser(userInfo);        
+    }    
 }
