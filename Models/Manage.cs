@@ -63,7 +63,7 @@ namespace Manage.Models
                 return "You entered not correct email";
 
             if (_dbContext.UsersEntities.Where(w => w.Email == userInfo.Email).Any())
-                return "You entered not correct email";
+                return "This email is registered. Try to register another email";
 
             _dbContext.UsersEntities.Add(new UsersEntity
             {
