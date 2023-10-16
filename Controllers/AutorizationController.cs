@@ -21,7 +21,7 @@ public class AutorizationController : ControllerBase
 
     [HttpPost]
     [Route("api/Register")]
-    public bool Register([FromBody] UserInfo userInfo)
+    public string Register([FromBody] UserInfo userInfo)
     {
         Manages manages = new Manages(_dbContext);
         return manages.RegisterUser(userInfo);

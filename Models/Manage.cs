@@ -57,22 +57,23 @@ namespace Manage.Models
             }
         }
 
-        public bool RegisterUser(UserInfo userInfo)
+        public string RegisterUser(UserInfo userInfo)
         {
             if (!IsValid(userInfo.Email))
-                return false;
+                return "You entered not correct email";
 
             if (_dbContext.UsersEntities.Where(w => w.Email == userInfo.Email).Any())
-                return false;
+                return "You entered not correct email";
 
             _dbContext.UsersEntities.Add(new UsersEntity
             {
                 Email = userInfo.Email,
-                Password = EncryptPassword(userInfo.Password)
+                Password = EncryptPassword(userInfo.Password),
+                Created_Date = DateTime.UtcNow.Date
             });
             _dbContext.SaveChanges();
 
-            return true;
+            return "Account was created";
         }
 
         public bool Autorization(UserInfo userInfo)
