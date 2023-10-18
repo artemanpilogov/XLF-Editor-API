@@ -54,6 +54,24 @@ namespace Manage.Models
                             InsertLog(logEntity);
                         break;
                     }
+                case EntryType.GoogleTranslate:
+                    {
+                        if (setupEntity.Google_Translate)
+                            InsertLog(logEntity);
+                        break;
+                    }
+                case EntryType.LocalTranslate:
+                    {
+                        if (setupEntity.Local_Translate)
+                            InsertLog(logEntity);
+                        break;
+                    }
+                case EntryType.SyncTarget:
+                    {
+                        if (setupEntity.Sync_Target)
+                            InsertLog(logEntity);
+                        break;
+                    }
             }
         }
 

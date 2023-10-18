@@ -10,5 +10,8 @@ namespace Setup.Models
         public bool Export_From_CSV { get; set; }
         public bool Save_Changes { get; set; }
         public bool Created_File { get; set; }
+        public bool Google_Translate { get; set; }
+        public bool Local_Translate { get; set; }
+        public bool Sync_Target { get; set; }
     }
 }
