@@ -72,6 +72,18 @@ namespace Manage.Models
                             InsertLog(logEntity);
                         break;
                     }
+                case EntryType.Autorization:
+                    {
+                        if (setupEntity.Autorization)
+                            InsertLog(logEntity);
+                        break;
+                    }
+                case EntryType.Register:
+                    {
+                        if (setupEntity.Register)
+                            InsertLog(logEntity);
+                        break;
+                    }
             }
         }
 
@@ -90,7 +102,7 @@ namespace Manage.Models
                 Created_Date = DateTime.UtcNow.Date
             });
             _dbContext.SaveChanges();
-
+            
             return "Account was created";
         }
 
@@ -108,6 +120,9 @@ namespace Manage.Models
             {
                 return  "Password is not correct";
             }
+
+            userEntity.Last_Login_Date = DateTime.UtcNow.Date;            
+            _dbContext.SaveChanges();    
             return "Authorization was successful";
         }
 

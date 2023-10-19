@@ -6,5 +6,7 @@ public enum EntryType
     CreatedFile = 3,
     GoogleTranslate = 4,
     LocalTranslate = 5,
-    SyncTarget = 6
+    SyncTarget = 6,
+    Autorization = 7,
+    Register = 8
 }

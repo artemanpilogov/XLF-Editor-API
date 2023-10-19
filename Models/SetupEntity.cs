@@ -13,5 +13,7 @@ namespace Setup.Models
         public bool Google_Translate { get; set; }
         public bool Local_Translate { get; set; }
         public bool Sync_Target { get; set; }
+        public bool Autorization { get; set; }
+        public bool Register { get; set; }
     }
 }
