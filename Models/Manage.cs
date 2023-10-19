@@ -94,20 +94,21 @@ namespace Manage.Models
             return "Account was created";
         }
 
-        public bool Autorization(UserInfo userInfo)
+        public string Autorization(UserInfo userInfo)
         {
             if (!IsValid(userInfo.Email))
-                return false;
+                return "You entered not correct email";
 
             UsersEntity userEntity = _dbContext.UsersEntities.Where(w => w.Email == userInfo.Email).FirstOrDefault();
 
             if (userEntity == null)
-                return false;
+                return "Email was not found";
+
             if (userInfo.Password != DecryptPassword(userEntity.Password))
             {
-                return  false;
+                return  "Password is not correct";
             }
-            return true;
+            return "Authorization was successful";
         }
 
         private byte[] EncryptPassword(string password)

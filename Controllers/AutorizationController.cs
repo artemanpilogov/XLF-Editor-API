@@ -1,4 +1,5 @@
 using Manage.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -13,7 +14,7 @@ public class AutorizationController : ControllerBase
 
     [HttpPost]
     [Route("api/Autorization")]
-    public bool Autorization([FromBody] UserInfo userInfo)
+    public string Autorization([FromBody] UserInfo userInfo)
     {
         Manages manages = new Manages(_dbContext);
         return manages.Autorization(userInfo);
