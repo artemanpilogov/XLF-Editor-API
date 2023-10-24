@@ -1,6 +1,8 @@
+using System.Data;
 using System.Net.Mail;
 using System.Text;
 using Log.Models;
+using Microsoft.Data.SqlClient;
 using Setup.Models;
 using Users.Models;
 
@@ -95,14 +97,17 @@ namespace Manage.Models
             if (_dbContext.UsersEntities.Where(w => w.Email == userInfo.Email).Any())
                 return "This email is registered. Try to register another email";
 
+            string table_name = 'T' + Guid.NewGuid().ToString().Replace("-", "");
             _dbContext.UsersEntities.Add(new UsersEntity
             {
                 Email = userInfo.Email,
                 Password = EncryptPassword(userInfo.Password),
-                Created_Date = DateTime.UtcNow.Date
+                Created_Date = DateTime.UtcNow.Date,
+                Table_Name = table_name
             });
             _dbContext.SaveChanges();
-            
+
+            CreateNewTable(table_name);
             return "Account was created";
         }
 
@@ -118,11 +123,11 @@ namespace Manage.Models
 
             if (userInfo.Password != DecryptPassword(userEntity.Password))
             {
-                return  "Password is not correct";
+                return "Password is not correct";
             }
 
-            userEntity.Last_Login_Date = DateTime.UtcNow.Date;            
-            _dbContext.SaveChanges();    
+            userEntity.Last_Login_Date = DateTime.UtcNow.Date;
+            _dbContext.SaveChanges();
             return "Authorization was successful";
         }
 
@@ -158,6 +163,20 @@ namespace Manage.Models
             }
 
             return valid;
+        }
+
+        private void CreateNewTable(string table_name)
+        {
+            using (var conn = new SqlConnection("Server=scp.realhost.com.ua;Database=xlfeditor;TrustServerCertificate=true;User Id=artadminxlf;Password=iox8nuzspabvwkjhctrd"))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("dbo.sproc_CreateTableAtRuntime", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.Add(new SqlParameter("@TableName", String.Format("dbo.{0}", table_name)));
+                _ = cmd.ExecuteReader();
+            }
         }
     }
 }

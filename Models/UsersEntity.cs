@@ -12,5 +12,7 @@ namespace Users.Models
         public DateTime Created_Date { get; set; }
 
         public DateTime Last_Login_Date { get; set; }
+
+        public string Table_Name { get; set; }
     }
 }
