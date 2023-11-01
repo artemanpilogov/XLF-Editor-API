@@ -13,6 +13,9 @@ builder.Services.AddDbContext<DBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("constring"));
 });
 
+ var _jwtsettings = builder.Configuration.GetSection("JwtSettings");
+ builder.Services.Configure<JwtSettings>(_jwtsettings);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
