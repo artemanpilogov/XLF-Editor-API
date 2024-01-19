@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rBtLL+YxEsVwhDoh38+FMg/JxEwEnCuWSFCm407ETHLPeUC7IEA00uH7xpZSpzCBw2U7RbIfVVW2WKmyj/ovQQ==",
+  "dgSpecHash": "/8R7vukRoQNM6H2HSmjv/GFyOqqp9eT93vsOnIU2PNR/GBsRxFM/5uRoI6dEzE7flkwLNbvQh/qhkkHwDwCMwA==",
   "success": true,
   "projectFilePath": "D:\\Solution\\Own\\XLF-Editor-API\\XLF-Editor-API.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\ART_Laptop\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\ART_Laptop\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
     "C:\\Users\\ART_Laptop\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\ART_Laptop\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.6\\microsoft.aspnetcore.authentication.jwtbearer.6.0.6.nupkg.sha512",
     "C:\\Users\\ART_Laptop\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.10\\microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",
     "C:\\Users\\ART_Laptop\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ART_Laptop\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

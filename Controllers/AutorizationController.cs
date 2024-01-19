@@ -18,9 +18,17 @@ public class AutorizationController : ControllerBase
         _jwtSettings = options.Value;
     }
 
+
     [HttpPost]
     [Route("api/Autorization")]
-    public string Autorization([FromBody] UserInfo userInfo)
+    public string Autorization()
+    {   
+        return "Authorization was successful";
+    }
+
+    [HttpPost]
+    [Route("api/GetToken")]
+    public string GetToken([FromBody] UserInfo userInfo)
     {
         Manages manages = new Manages(_dbContext);
         string result = manages.Autorization(userInfo);
@@ -38,7 +46,7 @@ public class AutorizationController : ControllerBase
                     new Claim(ClaimTypes.Name, userInfo.Email)
                 }
             ),
-            Expires = DateTime.Now.AddMinutes(20),
+            Expires = DateTime.Now.AddSeconds(20),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(tokenKey),
                 SecurityAlgorithms.HmacSha256
@@ -48,7 +56,7 @@ public class AutorizationController : ControllerBase
         var token = tokenHandler.CreateToken(tokenDesc);
         string finaltoken = tokenHandler.WriteToken(token);
 
-        return result;
+        return result + "spacetoken" + finaltoken;
     }
 
     [HttpPost]
