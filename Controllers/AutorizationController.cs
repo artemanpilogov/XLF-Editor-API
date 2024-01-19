@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 public class AutorizationController : ControllerBase
@@ -18,7 +19,7 @@ public class AutorizationController : ControllerBase
         _jwtSettings = options.Value;
     }
 
-
+    [Authorize]
     [HttpPost]
     [Route("api/Autorization")]
     public string Autorization()
@@ -46,7 +47,7 @@ public class AutorizationController : ControllerBase
                     new Claim(ClaimTypes.Name, userInfo.Email)
                 }
             ),
-            Expires = DateTime.Now.AddSeconds(20),
+            Expires = DateTime.Now.AddHours(12),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(tokenKey),
                 SecurityAlgorithms.HmacSha256

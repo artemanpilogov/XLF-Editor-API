@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -7,6 +8,7 @@ public class TranslateController
     {
     }
 
+    [Authorize]
     [HttpPost]
     [Route("api/SaveTranslate")]
     public string SaveTranslate()
@@ -14,9 +16,11 @@ public class TranslateController
         return "Saved";
     }
 
+    [Authorize]
     [HttpPost]
     [Route("api/GetTranslate")]
-    public void GetTranslate()
+    public string GetTranslate()
     {        
+        return "Got Translation";
     }
 }
