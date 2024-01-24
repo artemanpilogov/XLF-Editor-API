@@ -5,6 +5,7 @@ using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
 using Manage.Models;
 using System.Net;
+using System.Text.RegularExpressions;
 
 [ApiController]
 public class ImportExportController : ControllerBase
@@ -38,12 +39,17 @@ public class ImportExportController : ControllerBase
                     else
                         targetLine += ',' + line.target;
                 }
+
+                string[] words = targetLine.Split(',');
+                string[] distinctWords = words.Distinct().ToArray();
+                string output = string.Join(",", distinctWords);
+                
                 if (groupSource.Key != null)
-                    listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", groupSource.Key, targetLine));
+                    listCsv.AppendLine(string.Format("\"{0}\",\"{1}\"", groupSource.Key, output));
             }
         }
 
-        byte[] fileBytes = Encoding.ASCII.GetBytes(listCsv.ToString());
+        byte[] fileBytes = Encoding.UTF8.GetBytes(listCsv.ToString());
         Manages manages = new Manages(_dbContext);
         manages.InsertLog(GetIpAddrss(), EntryType.ImportToCSV);
         return File(fileBytes, "text/csv");
@@ -65,7 +71,7 @@ public class ImportExportController : ControllerBase
             newXmlFile = UpdateXmlFile(csvFile, file[1]);
         }
 
-        byte[] fileBytes = Encoding.ASCII.GetBytes(newXmlFile);
+        byte[] fileBytes = Encoding.UTF8.GetBytes(newXmlFile);
         return File(fileBytes, "application/xml");
     }
 

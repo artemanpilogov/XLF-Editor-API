@@ -7,6 +7,7 @@ D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\XLF-Editor-API.pdb
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Azure.Core.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Azure.Identity.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\CsvHelper.dll
+D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Microsoft.AspNetCore.OpenApi.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Solution\Own\XLF-Editor-API\bin\Release\net7.0\publish\Microsoft.Data.SqlClient.dll
