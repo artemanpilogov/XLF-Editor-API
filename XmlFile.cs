@@ -15,8 +15,11 @@ public class File
 
 public class Body
 {
-    [XmlElement(ElementName = "group")]
-    public Group group { get; set; }
+    [XmlElement(ElementName = "group")]        
+    public Group? group { get; set; }
+    
+    [XmlElement(ElementName = "trans-unit")]
+    public List<TransUnit> transUnit { get; set; }
 }
 
 public class Group

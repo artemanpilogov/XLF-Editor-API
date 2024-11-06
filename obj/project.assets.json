@@ -3460,19 +3460,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ART_Laptop\\.nuget\\packages\\": {}
+    "C:\\Users\\melit\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Solution\\Own\\XLF-Editor-API\\XLF-Editor-API.csproj",
+      "projectUniqueName": "D:\\Solution\\Own\\XLF-Editor-API\\XLF-Editor-API.csproj",
       "projectName": "XLF-Editor-API",
-      "projectPath": "d:\\Solution\\Own\\XLF-Editor-API\\XLF-Editor-API.csproj",
-      "packagesPath": "C:\\Users\\ART_Laptop\\.nuget\\packages\\",
-      "outputPath": "d:\\Solution\\Own\\XLF-Editor-API\\obj\\",
+      "projectPath": "D:\\Solution\\Own\\XLF-Editor-API\\XLF-Editor-API.csproj",
+      "packagesPath": "C:\\Users\\melit\\.nuget\\packages\\",
+      "outputPath": "D:\\Solution\\Own\\XLF-Editor-API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ART_Laptop\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\melit\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -3550,7 +3550,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }

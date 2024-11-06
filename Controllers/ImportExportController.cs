@@ -27,7 +27,15 @@ public class ImportExportController : ControllerBase
         listCsv.AppendLine("\"source\",\"target\"");
         if (xmlFile != null)
         {
-            var groupSources = xmlFile.file.body.group.transUnit.Where(w => w.source != "").GroupBy(g => g.source);
+            var transUnit = new List<TransUnit>();
+
+            if (xmlFile.file.body.group != null)
+                transUnit.AddRange(xmlFile.file.body.group.transUnit);
+
+            if (xmlFile.file.body.transUnit != null)
+                transUnit.AddRange(xmlFile.file.body.transUnit);
+
+            var groupSources = transUnit.Where(w => w.source != "").GroupBy(g => g.source);
 
             foreach (var groupSource in groupSources)
             {
