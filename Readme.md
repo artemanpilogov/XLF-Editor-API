@@ -1,1 +1,2 @@
-dotnet publish -c Release
+Создать папку publish - dotnet publish -c Release
+Запустить для тестирования - dotnet run
